@@ -1,17 +1,19 @@
+---
+# Items that apply to ALL profiles:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://eureka-primary:8010/eureka/,http://eureka-secondary:8011/eureka/,http://eureka-tertiary:8012/eureka/
-lucky-word: Eureka!
+      defaultZone: http://localhost:8010/eureka/
+
 ---
 spring:
   profiles: subject
 words: I,You,He,She,It
-
+  
 ---
 spring:
   profiles: verb
-words: grabbed,carried,charged,said,lost
+words: ran,knew,had,saw,bought
 
 ---
 spring:
