@@ -7,6 +7,8 @@
 ogm:
   global:
     parameter: Parametro que aplica para todos los perfiles
+  welcome:
+    message: Welcome to OGM services!
 ---
 spring:
   profiles: subject
