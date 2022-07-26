@@ -1,0 +1,5 @@
+com:
+  ogm:
+    s:
+      welcome:
+        param: SWelcome Parameter in Config Server
