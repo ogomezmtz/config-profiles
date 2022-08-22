@@ -1,0 +1,5 @@
+com:
+  ogm:
+    x:
+      welcome:
+        param: XWelcome Parameter from ConfigServer
