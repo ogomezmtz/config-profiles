@@ -1,0 +1,193 @@
+server:
+  port: 8080
+application:
+  id: TRANSFERS
+  type: E
+  channel:
+  moduleOperation:
+    transfers: /transfers
+  client:
+    fundSellRequest:
+      protocol: http
+      host: ms-transfer-funds-business
+      port: 8080
+      basePath: /transfer/funds
+      timeout:
+        connection: 3000000
+        read: 3000000
+      url: ${application.client.fundSellRequest.protocol}://${application.client.fundSellRequest.host}:${application.client.fundSellRequest.port}${application.client.fundSellRequest.basePath}
+    checkAddress:
+      protocol: http
+      host: mb-product-debit-card
+      port: 8080
+      basePath: /debit/checkAddress
+      timeout:
+        connection: 300000
+        read: 300000
+      url: ${application.client.checkAddress.protocol}://${application.client.checkAddress.host}:${application.client.checkAddress.port}${application.client.checkAddress.basePath}
+    businessHour:
+      protocol: http
+      host: mb-product-debit-card
+      port: 8080
+      basePath: /debit/businessHours
+      timeout:
+        connection: 300000
+        read: 300000
+      url: ${application.client.businessHour.protocol}://${application.client.businessHour.host}:${application.client.businessHour.port}${application.client.businessHour.basePath}
+    channelClient: #Definir canal del cliente (DigitalChannel, Fix,etc)
+      accounts: #Definir Operacion del cliente
+        protocol: http #No Cambiar
+        host: localhost #Cambiar por el host de kubernetes -> ej: ms-digitalchannel-catalog-addresses-system
+        port: 8080 #Cambiar solo en caso de pruebas en local
+        basePath: /accounts #Endpoint del Cliente
+        timeout:
+          connection: 100
+          read: 1000
+        url: ${application.client.channelClient.accounts.protocol}://${application.client.channelClient.accounts.host}:${application.client.channelClient.accounts.port}${application.client.channelClient.accounts.basePath}
+    digitalChannel:
+      security:
+        getSession:
+          protocol: http
+          host: ms-cross-security-sap
+          port: 8080
+          basePath: /digitalchannel/security/user
+          timeout:
+            connection: 30000000
+            read: 30000000
+          url: ${application.client.digitalChannel.security.getSession.protocol}://${application.client.digitalChannel.security.getSession.host}:${application.client.digitalChannel.security.getSession.port}${application.client.digitalChannel.security.getSession.basePath}
+    management:    
+      transferThirdpartyBank:
+          protocol: http
+          host: ms-transfer-funds-business
+          port: 8080
+          basePath: /transfer/others/thirdparty/bank
+          timeout:
+            connection: 30000000
+            read: 30000000
+          url: ${application.client.management.transferThirdpartyBank.protocol}://${application.client.management.transferThirdpartyBank.host}:${application.client.management.transferThirdpartyBank.port}${application.client.management.transferThirdpartyBank.basePath}
+      transferOwnBrokerage:
+          protocol: http
+          host: ms-transfer-funds-business
+          port: 8080
+          basePath: /transfer/own/brokerage
+          timeout:
+            connection: 30000000
+            read: 30000000
+          url: ${application.client.management.transferOwnBrokerage.protocol}://${application.client.management.transferOwnBrokerage.host}:${application.client.management.transferOwnBrokerage.port}${application.client.management.transferOwnBrokerage.basePath}
+      transferOwnBank:
+          protocol: http
+          host: ms-transfer-funds-business
+          port: 8080
+          basePath: /transfer/own/bank
+          timeout:
+            connection: 30000000
+            read: 30000000
+          url: ${application.client.management.transferOwnBank.protocol}://${application.client.management.transferOwnBank.host}:${application.client.management.transferOwnBank.port}${application.client.management.transferOwnBank.basePath}
+      transferOtherBank:
+          protocol: http
+          host: ms-transfer-funds-business
+          port: 8080
+          basePath: /transfer/others/actinver/bank
+          timeout:
+            connection: 30000000
+            read: 30000000
+          url: ${application.client.management.transferOtherBank.protocol}://${application.client.management.transferOtherBank.host}:${application.client.management.transferOtherBank.port}${application.client.management.transferOtherBank.basePath}
+      transfer:
+        brokerage:
+          protocol: http
+          host: ms-management-accounts-business
+          port: 8080
+          basePath: /management/transfer/brokerage
+          timeout:
+            connection: 30000000
+            read: 30000000
+          url: ${application.client.management.transfer.brokerage.protocol}://${application.client.management.transfer.brokerage.host}:${application.client.management.transfer.brokerage.port}${application.client.management.transfer.brokerage.basePath}
+      account:
+        modification:
+          protocol: http
+          host: ms-management-accounts-business
+          port: 8080
+          basePath: /management/destination/account/modification
+          timeout:
+            connection: 30000000
+            read: 30000000
+          url: ${application.client.management.account.modification.protocol}://${application.client.management.account.modification.host}:${application.client.management.account.modification.port}${application.client.management.account.modification.basePath}
+        elimination:
+          protocol: http
+          host: ms-management-accounts-business
+          port: 8080
+          basePath: /management/destination/account/elimination
+          timeout:
+            connection: 30000000
+            read: 30000000
+          url: ${application.client.management.account.elimination.protocol}://${application.client.management.account.elimination.host}:${application.client.management.account.elimination.port}${application.client.management.account.elimination.basePath}
+        registration:
+          protocol: http
+          host: ms-management-accounts-business
+          port: 8080
+          basePath: /management/destination/account/registration
+          timeout:
+            connection: 30000000
+            read: 30000000
+          url: ${application.client.management.account.registration.protocol}://${application.client.management.account.registration.host}:${application.client.management.account.registration.port}${application.client.management.account.registration.basePath}
+        validateClabe:
+          protocol: http
+          host: ms-management-notifications-business
+          port: 8080
+          basePath: /management/validate/clabe
+          timeout:
+            connection: 30000000
+            read: 30000000
+          url: ${application.client.management.account.validateClabe.protocol}://${application.client.management.account.validateClabe.host}:${application.client.management.account.validateClabe.port}${application.client.management.account.validateClabe.basePath}
+      spei:
+        speimovements:
+          protocol: http
+          host: ms-management-ceps-business
+          port: 8080
+          basePath: /management/spei/movements
+          timeout:
+            connection: 30000000
+            read: 30000000
+          url: ${application.client.management.spei.speimovements.protocol}://${application.client.management.spei.speimovements.host}:${application.client.management.spei.speimovements.port}${application.client.management.spei.speimovements.basePath}
+        ceps:
+          protocol: http
+          host: ms-management-ceps-business
+          port: 8080
+          basePath: /management/spei/cep
+          timeout:
+            connection: 30000000
+            read: 30000000
+          url: ${application.client.management.spei.ceps.protocol}://${application.client.management.spei.ceps.host}:${application.client.management.spei.ceps.port}${application.client.management.spei.ceps.basePath}        
+    destinationaccount:
+      protocol: http 
+      host: ms-account-funds-business
+      port: 8080 
+      basePath: /account/funds/account/destinationAccountQuery
+      timeout:
+        connection: 30000000
+        read: 30000000
+      url: ${application.client.destinationaccount.protocol}://${application.client.destinationaccount.host}:${application.client.destinationaccount.port}${application.client.destinationaccount.basePath}          
+    movements:
+      banksCatalog: 
+        protocol: http
+        host: ms-catalog-banks-business
+        port: 8080
+        basePath: /catalog/banks
+        timeout: 
+          connection: 30000000
+          read: 30000000
+        url: ${application.client.movements.banksCatalog.protocol}://${application.client.movements.banksCatalog.host}:${application.client.movements.banksCatalog.port}${application.client.movements.banksCatalog.basePath}  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+ 
+# Favor de subir version por cada liberacion QA 
+ymlVesion: 1.0.1
+environment: DEV
+ 
+#GOVERNANCE ID
+# *** NO MODIFICAR ***
+microId: ME00004 
